@@ -1,5 +1,4 @@
 # 1 -Bibliotecas / Imports
-import time
 from behave import given, when, then
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -22,7 +21,7 @@ def step_impl(context, usuario, senha):
 
 @then(u'sou direcionado para pagina Home')
 def step_impl(context):
-    assert context.driver.find_element(By.CSS_SELECTOR, ".Title").text == "Products"
+    assert context.driver.find_element(By.CSS_SELECTOR, ".title").text == "Products"
     # time.sleep(2)                                     # Aguarda 2 segundos para visualização - remover depois = alfinete
     
     #teardown / encerramento
