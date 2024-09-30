@@ -4,6 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
 
+@given(u'que entro no site Sauce Demo')
 @given(u'que acesso o site Sauce Demo')
 def step_impl(context):
     # Setup / Inicialização
@@ -24,7 +25,15 @@ def step_impl(context):
     assert context.driver.find_element(By.CSS_SELECTOR, ".title").text == "Products"
     # time.sleep(2)                                     # Aguarda 2 segundos para visualização - remover depois = alfinete
     
-    #teardown / encerramento
+    # teardown / encerramento
+    context.driver.quit()
+    
+@then(u'exibe a mensagem de erro no login')
+def step_impl(context):
+    # Validar a mensagem de erro
+    assert context.driver.find_element(By.CSS_SELECTOR, "h3").text == "Epic sadface: Username and password do not match any user in this service"
+    
+    # teardown / encerramento
     context.driver.quit()
     
     
