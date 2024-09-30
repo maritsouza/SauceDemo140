@@ -27,3 +27,22 @@ Feature: Selecionar Produto
             | 07 |               |              | Epic sadface: Username is required                                        |
             | 08 |               | abacate123   | Epic sadface: Username is required                                        |
 
+
+    Scenario Outline: Login negativo com IF
+            Given que entro no site Sauce Demo
+            When digito os campos de login com usuario <usuario> e senha <senha> com IF
+            Then exibe a <mensagem> de erro no login
+
+            Examples:
+            
+            | id | usuario       | senha        | mensagem                                                                  |
+            | 01 | standard_user | abacate123   | Epic sadface: Username and password do not match any user in this service |
+            | 02 | standard_user | <branco>     | Epic sadface: Password is required                                        |
+            | 03 | <branco>      | secret_sauce | Epic sadface: Username is required                                        |
+            | 04 | kira          | secret_sauce | Epic sadface: Username and password do not match any user in this service |
+            | 05 | kira          | abacate123   | Epic sadface: Username and password do not match any user in this service |
+            | 06 | kira          | <branco>     | Epic sadface: Password is required                                        |
+            | 07 | <branco>      | <branco>     | Epic sadface: Username is required                                        |
+            | 08 | <branco>      | abacate123   | Epic sadface: Username is required                                        |
+
+
