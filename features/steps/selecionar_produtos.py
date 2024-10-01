@@ -88,19 +88,16 @@ def step_impl(context, mensagem):
 def step_impl(context):
     context.driver.find_element(By.ID, "add-to-cart-sauce-labs-backpack").click()
 
-@when(u'aparece a quantidade do produto adicionado no carrinho')
+@then(u'aparece a quantidade do produto adicionado no carrinho')
 def step_impl(context):
     assert context.driver.find_element(By.CSS_SELECTOR, ".shopping_cart_badge").text == "1"
 
 @then(u'aparece o botão de remover o produto do carrinho')
 def step_impl(context):
     assert context.driver.find_element(By.ID, "remove-sauce-labs-backpack").text == "Remove"
-    
-    # teardown / encerramento
-    # context.driver.quit()
 
 # Validando o produto no carrinho   
-@then(u'clico no carrinho')
+@when(u'clico no carrinho')
 def step_impl(context):
     context.driver.find_element(By.CSS_SELECTOR, ".shopping_cart_link").click()
 
@@ -113,13 +110,19 @@ def step_impl(context):
 def step_impl(context):
     context.driver.find_element(By.ID, "item_4_title_link").text == "Sauce Labs Backpack"
 
-@then(u'clico no botão de remover o produto do carrinho')
+@when(u'clico no botão de remover o produto do carrinho')
 def step_impl(context):
     context.driver.find_element(By.ID, "remove-sauce-labs-backpack").click()
-    
-@then(u'clico no botão menu e realizo o logout')
+
+# Realizando o logout
+@when(u'clico no botão menu e realizo o logout')
 def step_impl(context):
     context.driver.find_element(By.ID, "react-burger-menu-btn").click()   
     context.driver.find_element(By.ID, "logout_sidebar_link").click()
+    
+@then(u'verifico se estou deslogado do site Sauce Demo')
+def step_impl(context):
+    assert context.driver.current_url == "https://www.saucedemo.com/"
+    
     # teardown / encerramento
     context.driver.quit()

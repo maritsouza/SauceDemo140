@@ -51,12 +51,11 @@ Feature: Selecionar Produto
     
     Scenario: Adicionando e validando produto no carrinho
         When adiciono o produto "Sauce Labs Backpack" no carrinho
-        And aparece a quantidade do produto adicionado no carrinho
-        Then aparece o botão de remover o produto do carrinho
-        And clico no carrinho
-        And verifico se o produto "Sauce Labs Backpack" está no carrinho
+        Then aparece a quantidade do produto adicionado no carrinho
+        And aparece o botão de remover o produto do carrinho
+        When clico no carrinho
+        Then verifico se o produto "Sauce Labs Backpack" está no carrinho
         And verifico se aparece a quantidade do produto e o valor adicionado no carrinho
-        And clico no botão de remover o produto do carrinho
+        When clico no botão de remover o produto do carrinho
         And clico no botão menu e realizo o logout
-
-    
+        Then verifico se estou deslogado do site Sauce Demo
