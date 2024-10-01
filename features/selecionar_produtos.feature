@@ -1,4 +1,7 @@
 Feature: Selecionar Produto
+    Background:
+        Given que acesso o site Sauce Demo  
+        And que preencho os campos de login com usuario standard_user e senha secret_sauce
 
     Scenario: Selecionar produto "Sauce Labs Backpack"
         Given que acesso o site Sauce Demo 
@@ -45,4 +48,15 @@ Feature: Selecionar Produto
             | 07 | <branco>      | <branco>     | Epic sadface: Username is required                                        |
             | 08 | <branco>      | abacate123   | Epic sadface: Username is required                                        |
 
+    
+    Scenario: Adicionando e validando produto no carrinho
+        When adiciono o produto "Sauce Labs Backpack" no carrinho
+        And aparece a quantidade do produto adicionado no carrinho
+        Then aparece o botão de remover o produto do carrinho
+        And clico no carrinho
+        And verifico se o produto "Sauce Labs Backpack" está no carrinho
+        And verifico se aparece a quantidade do produto e o valor adicionado no carrinho
+        And clico no botão de remover o produto do carrinho
+        And clico no botão menu e realizo o logout
 
+    

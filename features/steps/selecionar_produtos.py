@@ -15,6 +15,7 @@ def step_impl(context):
     context.driver.get("https://www.saucedemo.com")     # Abre o navegador e acessa a URL
 
 #Preencher com usuário e senha  
+@given(u'que preencho os campos de login com usuario {usuario} e senha {senha}')
 @when(u'preencho os campos de login com usuario {usuario} e senha {senha}')
 def step_impl(context, usuario, senha):
     context.driver.find_element(By.ID, "user-name").send_keys(usuario)
@@ -42,7 +43,7 @@ def step_impl(context):
     # Não preencho a senha
     context.driver.find_element(By.ID, "login-button").click()
 
-# Preencer com usuário e senha através da decisão (IF)    
+# Preencher com usuário e senha através da decisão (IF)    
 @when(u'digito os campos de login com usuario {usuario} e senha {senha} com IF')
 def step_impl(context, usuario, senha):
     if usuario != '<branco>':
@@ -78,5 +79,47 @@ def step_impl(context, mensagem):
     # Validar a mensagem de erro
     assert context.driver.find_element(By.CSS_SELECTOR, "h3").text == mensagem
     
+    # teardown / encerramento
+    context.driver.quit()
+    
+
+# Adiciona o produto ao carrinho
+@when(u'adiciono o produto "Sauce Labs Backpack" no carrinho')
+def step_impl(context):
+    context.driver.find_element(By.ID, "add-to-cart-sauce-labs-backpack").click()
+
+@when(u'aparece a quantidade do produto adicionado no carrinho')
+def step_impl(context):
+    assert context.driver.find_element(By.CSS_SELECTOR, ".shopping_cart_badge").text == "1"
+
+@then(u'aparece o botão de remover o produto do carrinho')
+def step_impl(context):
+    assert context.driver.find_element(By.ID, "remove-sauce-labs-backpack").text == "Remove"
+    
+    # teardown / encerramento
+    # context.driver.quit()
+
+# Validando o produto no carrinho   
+@then(u'clico no carrinho')
+def step_impl(context):
+    context.driver.find_element(By.CSS_SELECTOR, ".shopping_cart_link").click()
+
+@then(u'verifico se aparece a quantidade do produto e o valor adicionado no carrinho')
+def step_impl(context):
+    context.driver.find_element(By.CSS_SELECTOR, ".cart_quantity").text == "1"
+    context.driver.find_element(By.CSS_SELECTOR, ".inventory_item_price").text == "$29.99"
+
+@then(u'verifico se o produto "Sauce Labs Backpack" está no carrinho')
+def step_impl(context):
+    context.driver.find_element(By.ID, "item_4_title_link").text == "Sauce Labs Backpack"
+
+@then(u'clico no botão de remover o produto do carrinho')
+def step_impl(context):
+    context.driver.find_element(By.ID, "remove-sauce-labs-backpack").click()
+    
+@then(u'clico no botão menu e realizo o logout')
+def step_impl(context):
+    context.driver.find_element(By.ID, "react-burger-menu-btn").click()   
+    context.driver.find_element(By.ID, "logout_sidebar_link").click()
     # teardown / encerramento
     context.driver.quit()
